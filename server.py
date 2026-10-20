@@ -29,5 +29,7 @@ class Handler(BaseHTTPRequestHandler):
         else: data=b'Not found'; status=404; content='text/plain'
         self.send_response(status); self.send_header('Content-Type',content); self.send_header('Cache-Control','no-store'); self.end_headers(); self.wfile.write(data)
 if __name__ == '__main__':
-    print('Wayfinder listening on port 3000', flush=True)
-    ThreadingHTTPServer(('0.0.0.0', int(os.environ.get('PORT','3000'))), Handler).serve_forever()
+    port = int(os.environ.get('PORT', '3000'))
+    server = ThreadingHTTPServer(('0.0.0.0', port), Handler)
+    print(f'Wayfinder listening at http://127.0.0.1:{port}/', flush=True)
+    server.serve_forever()

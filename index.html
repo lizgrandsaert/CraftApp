@@ -1,20 +1,52 @@
 <!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wayfinder Activity Library</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f6f0;color:#203b35;font:16px system-ui}header{background:#204e43;color:white;padding:32px max(5vw,20px)}header p{color:#d1e4d6}h1{margin:4px 0;font-size:36px}main{max-width:1250px;margin:auto;padding:28px 20px}.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}input,select,button{font:inherit;padding:11px;border:1px solid #b9c9be;border-radius:8px;background:white;color:#203b35}input{min-width:170px;flex:1}button{cursor:pointer}button:hover{background:#e8efe5}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}.card{padding:22px;border:1px solid #d5ded2;border-radius:12px;background:white;display:flex;flex-direction:column;gap:12px}.card h2{font-size:21px;margin:0}.card p{font-size:14px;margin:0;color:#53665f}.card button{margin-top:auto}.badge{font-size:12px;background:#edf1df;padding:5px 9px;border-radius:20px;align-self:start}.notice{background:#e9eddf;padding:14px;border-radius:8px;font-size:14px}#count{margin:18px 0}dialog{border:0;border-radius:14px;max-width:850px;width:94%;max-height:90vh;padding:28px;color:#203b35}dialog::backdrop{background:#16352bd0}dialog h3{border-bottom:1px solid #d5ded2;padding-bottom:8px}dialog p,dialog li{white-space:pre-wrap;line-height:1.6}a{color:#226653;overflow-wrap:anywhere}label{font-size:14px}#error{color:#9a2525}footer{padding:35px 0;color:#53665f;font-size:13px}
+*{box-sizing:border-box}body{margin:0;background:#f7f6f0;color:#203b35;font:16px system-ui}header{background:#204e43;color:white;padding:32px max(5vw,20px)}header p{color:#d1e4d6}h1{margin:4px 0;font-size:36px}main{max-width:1250px;margin:auto;padding:28px 20px}.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}input,select,button{font:inherit;padding:11px;border:1px solid #b9c9be;border-radius:8px;background:white;color:#203b35}input{min-width:170px;flex:1}input[type="checkbox"]{min-width:0;width:18px;height:18px;flex:none;vertical-align:middle}fieldset{border:1px solid #b9c9be;border-radius:8px;margin:16px 0}fieldset label{display:flex;align-items:center;gap:8px;padding:8px}button{cursor:pointer}button:hover{background:#e8efe5}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}.card{padding:22px;border:1px solid #d5ded2;border-radius:12px;background:white;display:flex;flex-direction:column;gap:12px}.card h2{font-size:21px;margin:0}.card p{font-size:14px;margin:0;color:#53665f}.card button{margin-top:auto}.badge{font-size:12px;background:#edf1df;padding:5px 9px;border-radius:20px;align-self:start}.notice{background:#e9eddf;padding:14px;border-radius:8px;font-size:14px}#count{margin:18px 0}dialog{border:0;border-radius:14px;max-width:850px;width:94%;max-height:90vh;padding:28px;color:#203b35}dialog::backdrop{background:#16352bd0}dialog h3{border-bottom:1px solid #d5ded2;padding-bottom:8px}dialog p,dialog li{white-space:pre-wrap;line-height:1.6}a{color:#226653;overflow-wrap:anywhere}label{font-size:14px}#error{color:#9a2525}footer{padding:35px 0;color:#53665f;font-size:13px}
 </style><header><div>REDISCOVER CENTER · FACILITATOR LIBRARY</div><h1>Find your next making adventure.</h1><p>Explore Wayfinder activities, materials, and source guides.</p></header><main>
 <div class="notice">Workbook-powered library · Source text is preserved. Some records need review or source guides; missing details are never guessed.</div>
-<form id="search-form">
+<noscript><p>Enable JavaScript in Firefox to search the workbook.</p></noscript><form id="search-form">
 <h2>Find lessons for your group</h2>
 <div class="toolbar"><label>Youngest age <input id="age-min" type="number" min="0" required value="5"></label><label>Oldest age <input id="age-max" type="number" min="0" required value="12"></label></div>
 <p>Select the tools and materials you have available. Unchecked items are treated as unavailable.</p>
-<fieldset><legend>Tools</legend><div id="tools" class="toolbar"></div></fieldset>
-<fieldset><legend>Materials</legend><div id="materials" class="toolbar"></div></fieldset>
+<fieldset><legend>Tools</legend><div id="tools" class="toolbar"><label><input type="checkbox" name="supply" value="Drill"> Drill</label><label><input type="checkbox" name="supply" value="Hot glue gun"> Hot glue gun</label><label><input type="checkbox" name="supply" value="Scissors"> Scissors</label><label><input type="checkbox" name="supply" value="Canary cutter"> Canary cutter</label><label><input type="checkbox" name="supply" value="Hand-saw"> Hand-saw</label></div></fieldset>
+<fieldset><legend>Materials</legend><div id="materials" class="toolbar"><label><input type="checkbox" name="supply" value="Cardboard"> Cardboard</label><label><input type="checkbox" name="supply" value="Glue"> Glue</label><label><input type="checkbox" name="supply" value="Tape"> Tape</label><label><input type="checkbox" name="supply" value="String"> String</label><label><input type="checkbox" name="supply" value="Craft paper"> Craft paper</label><label><input type="checkbox" name="supply" value="Collage materials"> Collage materials</label></div></fieldset>
 <p><label><input id="unknown" type="checkbox" checked style="min-width:0"> Include possible matches with unspecified ages or supplies needing review</label></p>
 <div class="toolbar"><button type="submit" style="background:#204e43;color:white">Search lessons</button><button id="reload" type="button">Reload workbook</button></div></form>
 <p class="notice">No project name needed. Age ranges match when they overlap your group’s range. Possible matches are labeled; check the complete source materials before teaching.</p><p id="error" role="alert"></p><p id="count" role="status"></p><div class="grid" id="results"></div><footer>Edit data/library.xlsx in Excel, save it, then choose Reload workbook. Reload reads the saved file on this server.</footer></main>
 <dialog id="detail"><button id="close">Close activity</button><div id="body"></div></dialog>
-<script type="module">
-import {tools, materials, matchRecord} from "/search.js";
+<script>
+const tools = ['Drill','Hot glue gun','Scissors','Canary cutter','Hand-saw'];
+const materials = ['Cardboard','Glue','Tape','String','Craft paper','Collage materials'];
+const aliases = {
+ 'Drill': /\bdrill(?:s|ing)?\b/i, 'Hot glue gun': /\bhot[ -]?glue\s*guns?\b/i,
+ 'Scissors': /\bscissors\b/i, 'Canary cutter': /\bcanary\s*(?:cutter|knife)s?\b/i,
+ 'Hand-saw': /\bhand[ -]?saws?\b/i, 'Cardboard': /\b(?:cardboard|paperboard)\b/i,
+ 'Glue': /\bglue\b/i, 'Tape': /\btape\b/i, 'String': /\bstring\b/i,
+ 'Craft paper': /\b(?:craft|construction) paper\b/i, 'Collage materials': /\bcollage materials\b/i
+};
+function matchRecord(r, options) {
+ const f=r.fields;
+ if (!(f['Activity Steps']||[]).length || /reference|curriculum|multi-activity/i.test((f['Source type']||[]).join(' '))) return null;
+ const notes=[];
+ const raw=(f['Age Range']||f['Age range']||[])[0]||'';
+ const age=raw.match(/^\s*(\d+)\s*[-–]\s*(\d+)\s*$/);
+ if(age) {if(Number(age[2])<options.min || Number(age[1])>options.max)return null;}
+ else notes.push('Age range not specified or needs review');
+ const lines=(f.Materials||[]).flatMap(x=>x.split('\n')).filter(x=>x.trim());
+ const text=lines.join('\n');
+ const requirements=[...tools,...materials].filter(x=>aliases[x].test(text));
+ // A named requirement cannot be satisfied by an unchecked item.
+ if(requirements.some(x=>!options.available.includes(x)))return null;
+ // Preserve uncertainty: headings, alternatives and uncatalogued supplies need review.
+ const remainder=lines.filter(line=>!/:\s*$/.test(line)).map(line=>{
+  let s=line; for(const name of requirements)s=s.replace(new RegExp(aliases[name].source,'ig'),'');
+  return s.replace(/\b(?:and|or|for|students?|instructors?|tools?|materials?|the|a|an)\b/ig,'').replace(/[\s\d\W_]+/g,'');
+ }).filter(Boolean);
+ if(!lines.length)notes.push('Materials not specified');
+ else if(remainder.length)notes.push('Additional supplies or alternatives need checking in the source list');
+ if(notes.length&&!options.includeUnknown)return null;
+ return {record:r,notes};
+}
+
 let records=[];const $=id=>document.getElementById(id);const val=(r,k)=>r.fields[k]||[];const label=s=>s.replaceAll('_',' ');
 function el(tag,text){const n=document.createElement(tag);n.textContent=text;return n}
 function show(r){const b=$('body');b.replaceChildren(el('h1',r.title));b.append(el('p','Source status: '+label(val(r,'Transcription status')[0]||'needs_review')));if(!val(r,'Activity Steps').length)b.append(el('p','Instructions have not yet been transcribed.'));
@@ -30,6 +62,5 @@ function render(){
  if(!found.length)$('results').append(el('p','No lessons match these available supplies. Check additional items you have, or include possible matches.'));
 }
 async function load(){ $('reload').disabled=true;try{const res=await fetch('/api/activities');const data=await res.json();if(!res.ok)throw Error(data.error);records=data.records;$('error').textContent='';render()}catch(e){$('error').textContent=e.message+' Previous results have been retained.'}finally{$('reload').disabled=false}}
-for(const [id,items] of [['tools',tools],['materials',materials]]) for(const item of items){const l=el('label','');const input=document.createElement('input');input.type='checkbox';input.name='supply';input.value=item;input.style.minWidth='0';l.append(input,document.createTextNode(' '+item));$(id).append(l);}
 $('search-form').onsubmit=e=>{e.preventDefault();render()};$('reload').onclick=load;$('close').onclick=()=>$('detail').close();load();
 </script></html>
