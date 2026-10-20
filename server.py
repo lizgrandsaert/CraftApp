@@ -22,6 +22,8 @@ class Handler(BaseHTTPRequestHandler):
             try: data = json.dumps({'records':load_records()}, ensure_ascii=False).encode(); status=200
             except Exception as e: data=json.dumps({'error':'Workbook could not be read. Check that it is a valid Excel workbook.'}).encode(); status=422
             content='application/json'
+        elif self.path == '/search.js':
+            data=(ROOT/'search.js').read_bytes(); status=200; content='text/javascript; charset=utf-8'
         elif self.path in ('/', '/index.html'):
             data=(ROOT/'index.html').read_bytes(); status=200; content='text/html; charset=utf-8'
         else: data=b'Not found'; status=404; content='text/plain'
