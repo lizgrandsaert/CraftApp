@@ -50,7 +50,7 @@ function matchRecord(r, options) {
 let records=[];const $=id=>document.getElementById(id);const val=(r,k)=>r.fields[k]||[];const label=s=>s.replaceAll('_',' ');
 function el(tag,text){const n=document.createElement(tag);n.textContent=text;return n}
 function show(r){const b=$('body');b.replaceChildren(el('h1',r.title));b.append(el('p','Source status: '+label(val(r,'Transcription status')[0]||'needs_review')));if(!val(r,'Activity Steps').length)b.append(el('p','Instructions have not yet been transcribed.'));
-for(const [key,values] of Object.entries(r.fields)){b.append(el('h3',key));if(key==='Source guide URL'){for(const v of values){try{const u=new URL(v);if(!['https:','http:'].includes(u.protocol))throw Error();const a=el('a',v);a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';b.append(a)}catch{b.append(el('p',v))}}else if(values.length>1){const list=document.createElement(key==='Activity Steps'?'ol':'ul');values.forEach(v=>list.append(el('li',v)));b.append(list)}else b.append(el('p',values[0]));} $('detail').showModal()}
+for(const [key,values] of Object.entries(r.fields)){b.append(el('h3',key));if(key==='Source guide URL'){for(const v of values){try{const u=new URL(v);if(!['https:','http:'].includes(u.protocol))throw Error();const a=el('a',v);a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';b.append(a)}catch{b.append(el('p',v))}}}else if(values.length>1){const list=document.createElement(key==='Activity Steps'?'ol':'ul');values.forEach(v=>list.append(el('li',v)));b.append(list)}else b.append(el('p',values[0]));} $('detail').showModal()}
 function render(){
  const min=Number($('age-min').value),max=Number($('age-max').value);
  if(min>max){$('error').textContent='Youngest age must be no greater than oldest age.';return;}
